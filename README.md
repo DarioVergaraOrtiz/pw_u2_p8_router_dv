@@ -1,4 +1,4 @@
-# vue_router
+# git_router
 
 ## Project setup
 ```
