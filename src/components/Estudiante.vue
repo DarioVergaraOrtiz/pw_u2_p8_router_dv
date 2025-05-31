@@ -14,8 +14,12 @@
     <button @click="obtenerPathVariable()">AccederPathVariable</button>
 
     <ul>
-      <li v-for="{ nombre, apellido, edad, genero, apodo } in lista" :key="nombre">
-        Nombre: {{ nombre }} - Apellido: {{ apellido }} - Edad: {{ edad }} - Genero: {{ genero }} - Apodo: {{ apodo }}
+      <li
+        v-for="{ nombre, apellido, edad, genero, apodo } in lista"
+        :key="nombre"
+      >
+        Nombre: {{ nombre }} - Apellido: {{ apellido }} - Edad: {{ edad }} -
+        Genero: {{ genero }} - Apodo: {{ apodo }}
       </li>
     </ul>
   </div>
@@ -31,13 +35,55 @@ export default {
       nuevoGenero: null,
       nuevoApodo: null,
       lista: [
-        { nombre: "Dario", apellido: "Vergara", edad:24, genero:"Masculino", apodo:"Calixto" },
-        { nombre: "Belen", apellido: "Paca", edad:25, genero:"Femenino", apodo:"Bel" },
-        { nombre: "Andy", apellido: "Cueva", edad:25, genero:"Masculino", apodo:"Jagandy" },
-        { nombre: "Bob", apellido: "Esponja", edad:26, genero:"Masculino", apodo:"Calixto2" },
-        { nombre: "Patricio", apellido: "Estrella", edad:27, genero:"Masculino", apodo:"Calixto3" },
-        { nombre: "Cala", apellido: "Mardo", edad:28, genero:"Masculino", apodo:"Calixto4" },
-        { nombre: "Calixto", apellido: "Ortiz", edad:29, genero:"Masculino", apodo:"Calixto5" },
+        {
+          nombre: "Dario",
+          apellido: "Vergara",
+          edad: 24,
+          genero: "Masculino",
+          apodo: "Calixto",
+        },
+        {
+          nombre: "Belen",
+          apellido: "Paca",
+          edad: 25,
+          genero: "Femenino",
+          apodo: "Bel",
+        },
+        {
+          nombre: "Andy",
+          apellido: "Cueva",
+          edad: 25,
+          genero: "Masculino",
+          apodo: "Jagandy",
+        },
+        {
+          nombre: "Bob",
+          apellido: "Esponja",
+          edad: 26,
+          genero: "Masculino",
+          apodo: "Calixto2",
+        },
+        {
+          nombre: "Patricio",
+          apellido: "Estrella",
+          edad: 27,
+          genero: "Masculino",
+          apodo: "Calixto3",
+        },
+        {
+          nombre: "Cala",
+          apellido: "Mardo",
+          edad: 28,
+          genero: "Masculino",
+          apodo: "Calixto4",
+        },
+        {
+          nombre: "Calixto",
+          apellido: "Ortiz",
+          edad: 29,
+          genero: "Masculino",
+          apodo: "Calixto5",
+        },
       ],
     };
   },
@@ -48,25 +94,54 @@ export default {
         apellido: this.nuevoApellido,
         edad: this.nuevoEdad,
         genero: this.nuevoGenero,
-        apodo: this.nuevoApodo
+        apodo: this.nuevoApodo,
       };
       this.lista.unshift(nuevo);
       /* this.lista.push(nuevo);*/
     },
-    obtenerPathVariable(){
+    obtenerPathVariable() {
       const cedula = this.$route.params.cedula;
-      console.log(cedula)
+      console.log(cedula);
       const anio = this.$route.query.anio;
-      console.log(anio)
+      console.log(anio);
       const mes = this.$route.query.mes;
-      console.log(mes)
-    }
+      console.log(mes);
+    },
+  },
+  beforeCreate() {
+    console.log("beforeCreate");
+  },
+  created() {
+    console.log("create");
+  },
+  beforeMount() {
+    console.log("beforeMount");
+  },
+  mounted() {
+    const cedula = this.$route.params.cedula;
+    console.log(cedula);
+    const anio = this.$route.query.anio;
+    console.log(anio);
+    const mes = this.$route.query.mes;
+    console.log(mes);
+    console.log("mounted");
+  },
+  beforeUpdate() {
+    console.log("beforeUpdate");
+  },
+  updated() {
+    console.log("updated");
+  },
+  beforeUnmount() {
+    console.log("beforeUnmount");
+  },
+  unmounted() {
+    console.log("unmounted");
   },
 };
 </script>
 
 <style scoped>
-
 .container {
   background: #baa4f7;
   border: 1px solid;
@@ -113,7 +188,5 @@ li {
   border-radius: 8px;
   margin-bottom: 15px;
   font-size: 17px;
-
 }
-
 </style>
