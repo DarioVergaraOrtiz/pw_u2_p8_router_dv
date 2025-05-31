@@ -1,26 +1,35 @@
 <template>
   <div class="container">
     <!-- Mensaje de éxito -->
-    <div v-show="mostrarMensaje" class="alert">
-      <h2>¡País guardado!</h2>
+    <div v-show="mostrar" class="alert">
+      <h2> {{mensajeFinal}} </h2>
     </div>
 
     <!-- Formulario de países -->
     <div class="formulario">
       <label for="nombre">Nombre del país:</label>
       <input v-model="nuevoPais.nombre" id="nombre" type="text" />
+      <span v-if="mensaje.nombre"> {{ mensaje.nombre }} </span>
 
       <label for="capital">Capital:</label>
       <input v-model="nuevoPais.capital" id="capital" type="text" />
+      <span v-if="mensaje.capital"> {{ mensaje.capital }} </span>
 
       <label for="region">Región:</label>
       <input v-model="nuevoPais.region" id="region" type="text" />
+      <span v-if="mensaje.region"> {{ mensaje.region }} </span>
 
       <label for="poblacion">Población:</label>
-      <input v-model.number="nuevoPais.poblacion" id="poblacion" type="number" />
+      <input
+        v-model.number="nuevoPais.poblacion"
+        id="poblacion"
+        type="number"
+      />
+      <span v-if="mensaje.poblacion"> {{ mensaje.poblacion }} </span>
 
       <label for="moneda">Moneda:</label>
       <input v-model="nuevoPais.moneda" id="moneda" type="text" />
+      <span v-if="mensaje.moneda"> {{ mensaje.moneda }} </span>
 
       <button @click="agregarPais">Guardar país</button>
     </div>
@@ -41,7 +50,7 @@
           <td>{{ pais.nombre }}</td>
           <td>{{ pais.capital }}</td>
           <td>{{ pais.region }}</td>
-          <td>{{ pais.poblacion.toLocaleString() }}</td>
+          <td>{{ pais.poblacion }}</td>
           <td>{{ pais.moneda }}</td>
         </tr>
       </tbody>
@@ -54,36 +63,128 @@ export default {
   data() {
     return {
       nuevoPais: {
-        nombre: '',
-        capital: '',
-        region: '',
+        nombre: null,
+        capital: null,
+        region: null,
         poblacion: null,
-        moneda: '',
+        moneda: null,
       },
       lista: [
-        { nombre: "Ecuador", capital: "Quito", region: "América del Sur", poblacion: 17643060, moneda: "Dólar USD" },
-        { nombre: "España", capital: "Madrid", region: "Europa", poblacion: 47351567, moneda: "Euro" },
-        { nombre: "Japón", capital: "Tokio", region: "Asia", poblacion: 125960000, moneda: "Yen" },
+        {
+          nombre: "Ecuador",
+          capital: "Quito",
+          region: "América del Sur",
+          poblacion: 17643060,
+          moneda: "Dólar USD",
+        },
+        {
+          nombre: "España",
+          capital: "Madrid",
+          region: "Europa",
+          poblacion: 47351567,
+          moneda: "Euro",
+        },
+        {
+          nombre: "Japón",
+          capital: "Tokio",
+          region: "Asia",
+          poblacion: 125960000,
+          moneda: "Yen",
+        },
       ],
       mostrarMensaje: false,
+      nombreMensaje: false,
+      capitalMensaje: false,
+      regionMensaje: false,
+      poblacionMensaje: false,
+      monedaMensaje: false,
+
+      mensaje: {
+        nombre: null,
+        capital: null,
+        region: null,
+        poblacion: null,
+        moneda: null,
+      },
+      mensajeFinal: null,
     };
   },
   methods: {
     agregarPais() {
-      // Validación básica
-      if (!this.nuevoPais.nombre || !this.nuevoPais.capital) {
-        alert('Debe completar al menos el nombre y la capital.');
-        return;
+      if (this.validarEntradas()) {
+        // Inserta al inicio de la lista
+        this.lista.unshift({ ...this.nuevoPais });
+        // Limpia el formulario
+        this.nuevoPais = {
+          nombre: "",
+          capital: "",
+          region: "",
+          poblacion: null,
+          moneda: "",
+        };
+        // Muestra mensaje por 3 segundos
+        this.mostrarMensaje = true;
+        setTimeout(() => {
+          this.mostrarMensaje = false;
+        }, 3000);
+        this.mensajeFinal="Estudiante guardado";
+        this.limpiarPagina();
       }
-      // Inserta al inicio de la lista
-      this.lista.unshift({ ...this.nuevoPais });
-      // Limpia el formulario
-      this.nuevoPais = { nombre: '', capital: '', region: '', poblacion: null, moneda: '' };
-      // Muestra mensaje por 3 segundos
-      this.mostrarMensaje = true;
-      setTimeout(() => {
-        this.mostrarMensaje = false;
-      }, 3000);
+    },
+    validarEntradas() {
+      try {
+        //let validar = this.mensaje.capital.primero;
+        let numero = 0;
+        if (this.nuevoPais.nombre === null) {
+          this.mensaje.nombre = "Nombre es Obligatorio";
+        } else {
+          numero++;
+        }
+        if (this.nuevoPais.capital === null) {
+          this.mensaje.capital = "Capital es Obligatorio";
+        } else {
+          numero++;
+        }
+        if (this.nuevoPais.region === null) {
+          this.mensaje.region = "Region es Obligatorio";
+        } else {
+          numero++;
+        }
+        if (this.nuevoPais.poblacion === null) {
+          this.mensaje.poblacion = "Población es Obligatorio";
+        } else {
+          numero++;
+        }
+        if (this.nuevoPais.moneda === null) {
+          this.mensaje.moneda = "Moneda es Obligatorio";
+        } else {
+          numero++;
+        }
+
+        if (numero === 5) {
+          return true;
+        } else {
+          return false;
+        }
+      } catch (error) {
+        console.error("Error ha ocurrido un problema");
+        console.error(error);
+        this.mostrar = true;
+        this.mensajeFinal="Ha ocurrido un error en el sistema";
+      }
+    },
+    limpiarPagina() {
+      this.nuevoPais.nombre = null;
+      this.nuevoPais.capital = null;
+      this.nuevoPais.region = null;
+      this.nuevoPais.poblacion = null;
+      this.nuevoPais.moneda = null;
+
+      this.mensaje.nombre = null;
+      this.mensaje.capital = null;
+      this.mensaje.region = null;
+      this.mensaje.poblacion = null;
+      this.mensaje.moneda = null;
     },
   },
 };
@@ -148,7 +249,7 @@ export default {
 .tabla-paises {
   width: 100%;
   border-collapse: collapse;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   overflow: hidden;
 }
@@ -177,5 +278,12 @@ export default {
   letter-spacing: 0.5px;
   text-transform: uppercase;
   font-size: 0.9rem;
+}
+
+.formulario span {
+  color: red;
+  font-size: 0.9rem;
+  min-height: 1.2em;
+  display: block;
 }
 </style>
