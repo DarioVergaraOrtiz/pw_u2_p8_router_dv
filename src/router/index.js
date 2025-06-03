@@ -3,12 +3,18 @@ import HomeView from '../views/HomeView.vue'
 import EstudianteView from '../views/EstudianteView.vue'
 import EstudianteTablaView from '../views/EstudianteTablaView.vue'
 import PaisTablaView from '../views/PaisTablaView.vue'
+import PokemonView from '../views/PokemonView.vue'
 
 const routes = [
   {
     path: '/',
     name: 'home',
     component: HomeView
+  },
+  {
+    path: '/pokemon',
+    name: 'pokemonView',
+    component: PokemonView
   },
   {
     path: '/estudiante/:cedula',
