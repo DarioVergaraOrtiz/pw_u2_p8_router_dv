@@ -7,11 +7,6 @@ import PokemonView from '../views/PokemonView.vue'
 
 const routes = [
   {
-    path: '/',
-    name: 'home',
-    component: HomeView
-  },
-  {
     path: '/pokemon',
     name: 'pokemonView',
     component: PokemonView
@@ -31,14 +26,7 @@ const routes = [
     name: 'paisTablaView',
     component: PaisTablaView
   },
-  {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  },
+
   {
     path: '/contador/numeros',
     name: 'contadorView',

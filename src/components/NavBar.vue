@@ -1,6 +1,5 @@
 <template>
   <div>
-    <router-link to="/">Home</router-link> |
     <router-link to="/estudiante">Estudiante</router-link>
     <router-link to="/estudiante_tabla">Estudiante_Tabla</router-link> |
     <router-link to="/pais_tabla">Pais_tabla</router-link>
