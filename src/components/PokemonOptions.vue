@@ -1,7 +1,8 @@
 <template>
   <div class="option-container">
+    {{mensaje2}}
     <ul>
-      <li v-for="pokemon in pokemons" :key="pokemon.id">
+      <li @click="comunicarClick(pokemon.id)" v-for="pokemon in pokemons" :key="pokemon.id">
         {{ pokemon.nombre }}
       </li>
     </ul>
@@ -16,6 +17,24 @@ export default {
       required: true,
     },
   },
+  data() {
+    return {
+      mensaje2: "mensaje2"
+    };
+  },
+  methods:{
+    comunicarClick(id){
+      console.log("Click.....");
+      console.log(id);
+
+      const objetoEnviado = {
+        atributo1: id,
+        atributo: "Dario",
+        atributo3: true,
+      };
+      this.$emit('seleccionado', objetoEnviado);
+    }
+  }
 };
 </script>
 
