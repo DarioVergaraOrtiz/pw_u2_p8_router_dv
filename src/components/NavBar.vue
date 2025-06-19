@@ -7,6 +7,7 @@
     <router-link to="/pregunta">Preguntas</router-link>
     <router-link to="/holamundo">HolaMundo</router-link>
     <router-link to="/pokemon">Pokemon</router-link>
+    <router-link to="/responsivo">Responsivo</router-link>
   </div>
 </template>
 

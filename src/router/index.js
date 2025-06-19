@@ -4,8 +4,14 @@ import EstudianteView from '../views/EstudianteView.vue'
 import EstudianteTablaView from '../views/EstudianteTablaView.vue'
 import PaisTablaView from '../views/PaisTablaView.vue'
 import PokemonView from '../views/PokemonView.vue'
+import ResponsivoView from '../views/ResponsivoView.vue'
 
 const routes = [
+  {
+    path: '/responsivo',
+    name: 'responsivoView',
+    component: ResponsivoView
+  },
   {
     path: '/pokemon',
     name: 'pokemonView',
